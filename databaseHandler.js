@@ -1,5 +1,5 @@
 const {ObjectId,MongoClient} = require('mongodb');
-const url = 'mongodb://localhost:27017';
+const url = 'mongodb+srv://congthanh:shin1102@cluster0.j8cie.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
 async function getDB() {
     const client = await MongoClient.connect(url);

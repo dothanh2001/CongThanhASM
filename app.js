@@ -1,16 +1,16 @@
 const express = require('express')
-
-
+const path = require('path')
+const hbs = require('hbs')
 const app = express()
 
 const { insertStudent, updateStudent, getStudentById, deleteStudent
     , getDB, } = require('./databaseHandler');
-
+app.set('views', path.join(__dirname+ '/views'))
 app.set('view engine', 'hbs')
 
 
-app.use(express.static('public'))
-
+app.use(express.static('views'))
+app.use(express.urlencoded());
 app.get('/edit', async (req, res) => {
     const id = req.query.id;
 
@@ -27,6 +27,7 @@ app.post('/update', async (req, res) => {
 })
 
 app.post('/insert', async (req, res) => {
+    console.log(req.body)
     const nameInput = req.body.txtName;
     const tuoiInput = req.body.txtTuoi;
     const pictureInput = req.body.txtPicture;
@@ -54,6 +55,7 @@ app.get('/', async (req, res) => {
 })
 
 app.post('/search', async (req, res) => {
+    console.log(req.body)
     const searchInput = req.body.txtSearch;
     const dbo = await getDB()
     const allStudents = await dbo.collection("students").find({ name: searchInput }).toArray();
